@@ -1,0 +1,48 @@
+{
+  "name": "lokue",
+  "version": "0.0.1",
+  "private": false,
+  "description": "LokiJS Task Queue",
+  "author": {
+    "name": "prdn",
+    "email": "paolo@bitfinex.com"
+  },
+  "keywords": [
+    "bitfinex"
+  ],
+  "dependencies": {
+    "async": "^2.1.5",
+    "lodash": "^4.17.4",
+    "lokijs": "^1.4.3"
+  },
+  "engine": {
+    "node": ">=6.0"
+  },
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "devDependencies": {
+    "chai": "~3.2.0",
+    "mocha": "~2.2.5"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitfinexcom/lokue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitfinexcom/lokue/issues"
+  },
+  "homepage": "https://github.com/bitfinexcom/lokue",
+  "maintainers": [
+    {
+      "name": "prdn",
+      "email": "paolo@bitfinex.com"
+    }
+  ]
+}
