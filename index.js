@@ -58,8 +58,8 @@ class Lokue extends EventEmitter {
   stop(cb) {
     this._ready = false
 
-    this._clearInterval(this._tickItv)
-    this._clearInterval(this._saveItv)
+    clearInterval(this._tickItv)
+    clearInterval(this._saveItv)
 
     this.save(cb)
   }

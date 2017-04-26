@@ -43,7 +43,7 @@ setInterval(() => {
 
 process.on('SIGINT', () => {
   if (lok.isReady()) {
-    lok.save(() => {
+    lok.stop(() => {
       console.log('saved')
       process.exit()
     }) 
