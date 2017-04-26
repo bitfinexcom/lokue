@@ -1,11 +1,17 @@
 # lokue: LokiJS Job Queue
 
-Simple LokiJS Job Queue management
+Simple [LokiJS](http://lokijs.org/) Job Queue management
 
+### Features
+* Persist to file
+* Fast (configurable concurrency)
+* Small library
+
+### Example
 
 ```
 const lok = new Lokue({
-  name: 'lokue-test',
+  name: 'lokue-test.json',
   persist: true,
   concurrency: 10,
   timeout_save: 100
@@ -32,3 +38,5 @@ setInterval(() => {
 }, 1000)
 ```
 
+### Contributors
+* Paolo Ardoino <paolo@bitfinex.com> / <paolo.ardoino@gmail.com>
