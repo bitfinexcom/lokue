@@ -8,7 +8,6 @@ class Lokue extends EventEmitter {
   constructor(opts = {}) {
     super()
 
-    this._noop = () => {}
     this.opts = _.defaults({
       timeout_tick: 50,
       timeout_save: 5000,
