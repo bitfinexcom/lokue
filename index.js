@@ -125,21 +125,16 @@ class Lokue extends EventEmitter {
     })
   }
 
-  listStuckJobs() {
-    return this.jobs.chain().find({ status: 'PROCESSING' })
+  listJobs(status) {
+    return this.jobs.chain().find({ status: status })
       .simplesort('ts_updated').data()
   }
 
   requeueStuckJobs() {
     this.jobs.findAndUpdate({ status: 'PROCESSING' }, (job) => {
-      job.status = 'PROCESSING'
+      job.status = 'ACTIVE'
       this.updJob(job)
     })
-  }
-
-  listCompletedJobs() {
-    return this.jobs.chain().find({ status: 'COMPLETED' })
-      .simplesort('ts_updated').data()
   }
 
   clearCompletedJobs() {
