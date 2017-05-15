@@ -4,8 +4,7 @@ const _ = require('lodash')
 const Loki = require('lokijs')
 
 class Lokue extends EventEmitter {
-  
-  constructor(opts = {}) {
+  constructor (opts = {}) {
     super()
 
     this.opts = _.defaults({
@@ -15,11 +14,11 @@ class Lokue extends EventEmitter {
     }, opts)
   }
 
-  isReady() {
+  isReady () {
     return this._ready
   }
-  
-  init(cb) {
+
+  init (cb) {
     this._ready = false
 
     this.db = new Loki(this.opts.name, {
@@ -31,20 +30,20 @@ class Lokue extends EventEmitter {
     )
 
     this.load((err) => {
-      if (err) return cb(err) 
+      if (err) return cb(err)
       this._initDB()
       this._initTimers()
       this._ready = true
       cb()
     })
   }
-  
-  _initTimers() {
+
+  _initTimers () {
     this._tickItv = setInterval(this.tick.bind(this), this.opts.timeout_tick)
     this._savetv = setInterval(this.save.bind(this), this.opts.timeout_save)
   }
 
-  _initDB() {
+  _initDB () {
     if (!this.db.getCollection('jobs')) {
       const jobs = this.db.addCollection('jobs', {
         indices: ['id', 'status', 'ts_created', 'ts_updated']
@@ -55,7 +54,7 @@ class Lokue extends EventEmitter {
     this.jobs = this.db.getCollection('jobs')
   }
 
-  stop(cb) {
+  stop (cb) {
     this._ready = false
 
     clearInterval(this._tickItv)
@@ -64,17 +63,17 @@ class Lokue extends EventEmitter {
     this.save(cb)
   }
 
-  load(cb) {
+  load (cb) {
     if (!this.opts.persist) return cb()
     this.db.loadDatabase({}, cb)
   }
 
-  save(cb) {
+  save (cb) {
     if (!this.opts.persist) return cb()
     this.db.saveDatabase(cb)
   }
 
-  addJob(data) {
+  addJob (data) {
     const jid = Date.now()
 
     this.jobs.insert({
@@ -88,16 +87,16 @@ class Lokue extends EventEmitter {
     return jid
   }
 
-  delJob(job) {
+  delJob (job) {
     this.jobs.remove(job)
   }
 
-  updJob(job) {
+  updJob (job) {
     job.ts_update = Date.now()
     this.jobs.update(job)
   }
 
-  doneJob(job, err) {
+  doneJob (job, err) {
     if (err) {
       job.status = 'ERROR'
     } else {
@@ -106,12 +105,12 @@ class Lokue extends EventEmitter {
     this.updJob(job)
   }
 
-  requeueJob(job) {
+  requeueJob (job) {
     job.status = 'ACTIVE'
     this.updJob(job)
   }
 
-  processJob(jid, cb) {
+  processJob (jid, cb) {
     const job = this.jobs.by('id', jid)
     if (!job) return cb()
 
@@ -125,23 +124,23 @@ class Lokue extends EventEmitter {
     })
   }
 
-  listJobs(status) {
+  listJobs (status) {
     return this.jobs.chain().find({ status: status })
       .simplesort('ts_updated').data()
   }
 
-  requeueStuckJobs() {
+  requeueStuckJobs () {
     this.jobs.findAndUpdate({ status: 'PROCESSING' }, (job) => {
       job.status = 'ACTIVE'
       this.updJob(job)
     })
   }
 
-  clearCompletedJobs() {
+  clearCompletedJobs () {
     this.jobs.findAndRemove({ status: 'COMPLETED' })
   }
 
-  tick() {
+  tick () {
     if (this.queue.size > 100) return
     const jobs = this.jobs.chain().find({ status: 'ACTIVE' })
       .simplesort('ts_updated').data()
