@@ -136,6 +136,10 @@ class Lokue extends EventEmitter {
     })
   }
 
+  clearErrorJobs () {
+    this.jobs.findAndRemove({ status: 'ERROR' })
+  }
+
   clearCompletedJobs () {
     this.jobs.findAndRemove({ status: 'COMPLETED' })
   }
