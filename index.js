@@ -4,13 +4,14 @@ const _ = require('lodash')
 const Loki = require('lokijs')
 
 class Lokue extends EventEmitter {
+
   constructor (opts = {}) {
     super()
 
     this.opts = _.defaults({
-      timeout_tick: 50,
+      timeout_tick: 100,
       timeout_save: 5000,
-      concurrency: 5
+      concurrency: 3
     }, opts)
   }
 
