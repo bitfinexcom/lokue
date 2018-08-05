@@ -1,6 +1,6 @@
 {
   "name": "lokue",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": false,
   "description": "LokiJS Task Queue",
   "author": {
@@ -11,9 +11,9 @@
     "bitfinex"
   ],
   "dependencies": {
-    "async": "^2.1.5",
-    "lodash": "^4.17.4",
-    "lokijs": "^1.4.3"
+    "async": "^2.6.1",
+    "lodash": "^4.17.10",
+    "lokijs": "^1.5.5"
   },
   "engine": {
     "node": ">=6.0"
