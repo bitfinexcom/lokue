@@ -2,6 +2,7 @@ const EventEmitter = require('events')
 const async = require('async')
 const _ = require('lodash')
 const Loki = require('lokijs')
+const uuidv4 = require('uuid/v4')
 
 class Lokue extends EventEmitter {
 
@@ -75,7 +76,7 @@ class Lokue extends EventEmitter {
   }
 
   addJob (data) {
-    const jid = Date.now()
+    const jid = `${Date.now()}-${uuidv4()}`
 
     this.jobs.insert({
       id: jid,
