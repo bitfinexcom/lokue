@@ -42,7 +42,7 @@ class Lokue extends EventEmitter {
 
   _initTimers () {
     this._tickItv = setInterval(this.tick.bind(this), this.opts.timeout_tick)
-    this._savetv = setInterval(this.save.bind(this), this.opts.timeout_save)
+    this._saveItv = setInterval(this.save.bind(this), this.opts.timeout_save)
   }
 
   _initDB () {
