@@ -2,10 +2,9 @@ const EventEmitter = require('events')
 const async = require('async')
 const _ = require('lodash')
 const Loki = require('lokijs')
-const uuidv4 = require('uuid/v4')
+const { randomUUID } = require('crypto')
 
 class Lokue extends EventEmitter {
-
   constructor (opts = {}) {
     super()
 
@@ -76,14 +75,14 @@ class Lokue extends EventEmitter {
   }
 
   addJob (data) {
-    const jid = `${Date.now()}-${uuidv4()}`
+    const jid = `${Date.now()}-${randomUUID()}`
 
     this.jobs.insert({
       id: jid,
       status: 'ACTIVE',
       ts_created: Date.now(),
       ts_updated: Date.now(),
-      data: data
+      data
     })
 
     return jid
@@ -127,7 +126,7 @@ class Lokue extends EventEmitter {
   }
 
   listJobs (status) {
-    return this.jobs.chain().find({ status: status })
+    return this.jobs.chain().find({ status })
       .simplesort('ts_updated').data()
   }
 

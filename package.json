@@ -13,23 +13,20 @@
   "dependencies": {
     "async": "^2.6.1",
     "lodash": "^4.17.10",
-    "lokijs": "^1.5.5",
-    "uuid": "^3.3.2"
+    "lokijs": "^1.5.5"
   },
-  "engine": {
-    "node": ">=6.0"
+  "engines": {
+    "node": ">=22.0"
   },
   "main": "index.js",
   "directories": {
     "example": "examples",
     "test": "test"
   },
-  "devDependencies": {
-    "chai": "~3.2.0",
-    "mocha": "~2.2.5"
-  },
   "scripts": {
-    "test": "make test"
+    "test": "npm run lint",
+    "lint": "bfx-lint-js",
+    "lint:fix": "bfx-lint-js --fix"
   },
   "license": "MIT",
   "repository": {
@@ -45,5 +42,8 @@
       "name": "prdn",
       "email": "paolo@bitfinex.com"
     }
-  ]
+  ],
+  "devDependencies": {
+    "@bitfinex/lint-js": "^1.1.0"
+  }
 }

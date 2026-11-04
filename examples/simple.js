@@ -1,15 +1,17 @@
-const _ = require('lodash')
 const Lokue = require(`${__dirname}./../index`)
 
 const lok = new Lokue({
   name: 'lokue-test.json',
   persist: true,
   concurrency: 10,
-  timeout_save: 50,
   timeout_save: 100
 })
 
 lok.init((err) => {
+  if (err) {
+    console.error(err)
+    process.exit(-1)
+  }
   let ix = 0
 
   setInterval(() => {
@@ -35,7 +37,7 @@ process.on('SIGINT', () => {
     lok.stop(() => {
       console.log('saved')
       process.exit()
-    }) 
+    })
   } else {
     process.exit()
   }
