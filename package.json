@@ -1,6 +1,6 @@
 {
   "name": "lokue",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "private": false,
   "description": "LokiJS Task Queue",
   "author": {
@@ -41,6 +41,10 @@
     {
       "name": "prdn",
       "email": "paolo@bitfinex.com"
+    },
+    {
+      "name": "blerta",
+      "email": "blerta.krasniqi@bitfinex.com"
     }
   ],
   "devDependencies": {
