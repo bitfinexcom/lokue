@@ -1,6 +1,5 @@
 const EventEmitter = require('events')
 const async = require('async')
-const _ = require('lodash')
 const Loki = require('lokijs')
 const { randomUUID } = require('crypto')
 
@@ -8,11 +7,12 @@ class Lokue extends EventEmitter {
   constructor (opts = {}) {
     super()
 
-    this.opts = _.defaults({
+    this.opts = {
       timeout_tick: 100,
       timeout_save: 5000,
-      concurrency: 3
-    }, opts)
+      concurrency: 3,
+      ...opts
+    }
   }
 
   isReady () {
@@ -150,7 +150,7 @@ class Lokue extends EventEmitter {
     const jobs = this.jobs.chain().find({ status: 'ACTIVE' })
       .simplesort('ts_updated').data()
 
-    _.each(jobs, job => {
+    Object.values(jobs ?? {}).forEach(job => {
       job.status = 'PROCESSING'
       this.updJob(job)
       this.queue.push(job.id)
